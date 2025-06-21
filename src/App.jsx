@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    const [arrayList, setArrayList] = useState([
+        {
+            id: 1,
+            description: "Temperature",
+            list: ["hot", "lukewarm", "cold"],
+        },
+        {
+            id: 2,
+            description: "Syrup",
+            list: ["mocha", "vanilla", "toffee", "maple", "caramel"],
+        },
+        { id: 3, description: "Milk", list: ["cow", "oat", "goat"] },
+    ]);
+    // console.log(arrayList);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            <div className="app-container">
+                {arrayList.map((item) => {
+                    return <Card key={item.id} item={item} />;
+                })}
+            </div>
+        </>
+    );
 }
 
-export default App
+function Card({ item }) {
+    return (
+        <div key={item.id} className="card">
+            <h2 className="card-heading">{item.description}</h2>
+            <p className="display-ingredient">ingredient placeholder</p>
+            <input type="text" name="ingredient" id="ingredient-input-box" />
+            <div className="ingredients">
+                {item.list.map((li, i) => {
+                    return <p key={i}>{li}</p>;
+                })}
+            </div>
+        </div>
+    );
+}
+
+export default App;
